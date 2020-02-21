@@ -60,7 +60,7 @@ def main2():
             os.close(pipein)
             address_search(pipeout)
         else:
-            # pipein = os.fdopen(pipein)
+            pipein = os.fdopen(pipein)
             while True:
                 line = os.read(pipein, 32)
                 print(line)
