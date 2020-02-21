@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 #
 #    coineva vanitygen.py
-#    Copyright (C) 2016 February 
+#    Copyright (C) 2016 February
 #    1200 Web Development
 #    http://1200wd.com/
 #
@@ -32,37 +32,38 @@ def address_search(pipeout, search_for='1p2pool'):
     count = 0
     start = timeit.default_timer()
 
-    # os.write(pipeout, "Searching for %s (pid %s)" % (search_for, os.getpid()))
-    print ("Searching for %s (pid %s)" % (search_for, os.getpid()))
+    print("Searching for %s (pid %s)" % (search_for, os.getpid()))
     while not search_for in address:
         privkey += 1
         pubkey_point = fast_multiply(G, privkey)
         address = pubkey_to_address(pubkey_point)
         count += 1
         if not count % 1000:
-            print("Searched %d in %d seconds (pid %d)" % (count, timeit.default_timer()-start, os.getpid()))
+            print("Searched %d in %d seconds (pid %d)" %
+                  (count, timeit.default_timer()-start, os.getpid()))
 
     print("Found address %s" % address)
-    print("Private key HEX %s" % encode_privkey(privkey,'hex'))
+    print("Private key HEX %s" % encode_privkey(privkey, 'hex'))
 
-def main():
+
+def main1():
     # processors = multiprocessing.cpu_count()
     # processors = 2
     # print("You have %d processors so starting %d threads" % (processors, processors))
     # for i in range(processors):
 
-    pipein, pipeout = os.pipe()
-    pid = os.fork()
-    if pid == 0:
-        os.close(pipein)
-        address_search(pipeout)
-    else:
-        # pipein = os.fdopen(pipein)
-        while True:
-            line = os.read(pipein, 32)
-            print(line)
+        pipein, pipeout = os.pipe()
+        pid = os.fork()
+        if pid == 0:
+            os.close(pipein)
+            address_search(pipeout)
+        else:
+            # pipein = os.fdopen(pipein)
+            while True:
+                line = os.read(pipein, 32)
+                print(line)
 
-    print('Main process exiting')
+        print('Main process exiting')
 
 
-main()
+main1()
