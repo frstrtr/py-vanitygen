@@ -117,7 +117,7 @@ def thread():
             line = os.read(pipein, 32)
             print(line)
 
-    print('Main process exiting')
+        print('Main process exiting')
 
 
 thread()
