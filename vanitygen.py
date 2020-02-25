@@ -105,7 +105,7 @@ def address_search(search_for='1Love'):
                     wif_key, search_for, address, count, start)
 
 
-def thread():
+def thread_start():
     pipein, pipeout = os.pipe()
     pid = os.fork()
     if pid == 0:
@@ -119,5 +119,4 @@ def thread():
 
         print('Main process exiting')
 
-
-thread()
+thread_start()
