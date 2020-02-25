@@ -67,4 +67,4 @@ target/
 .vscode
 
 #keys
-keys.txt
+*.txt
